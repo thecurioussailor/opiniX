@@ -1,9 +1,26 @@
-import { Input } from "../ui/input"
-
+import { useState } from "react";
+import { Input } from "../ui/input";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+  } from "@/components/ui/dialog";
+  import {
+    InputOTP,
+    InputOTPGroup,
+    InputOTPSeparator,
+    InputOTPSlot,
+  } from "@/components/ui/input-otp";
+import { Button } from "../ui/button";
+  
 const Navbar = () => {
+    const [isOTPSent, setIsOTPSent] = useState(false);
   return (
     <nav className="bg-white dark:bg-[rgba(25,28,31,0.75)] bg-opacity-[75%] border-b dark:border-secondary-dark transform backdrop-blur-md text-black dark:text-white z-50 sticky top-[0px] w-full h-[80px] px-6 md:px-10 flex items-center justify-between">
-        <div>Opinix</div>
+        <div className="text-xl font-bold ml-2 text-black dark:text-white">OpiniX</div>
         <div>
             <Input placeholder="Search opinions" className="outline-none bg-gray-100 text-sm px-6 py-3 border-0 rounded-full w-[350px]"/>
         </div>
@@ -35,7 +52,49 @@ const Navbar = () => {
                         </button>
                     </div>
                 </div>
-                <button className="px-6 py-2 border rounded-xl text-sm font-semibold bg-black dark:bg-white dark:text-black text-white whitespace-nowrap">Trade Online</button>
+                <Dialog>
+                    <DialogTrigger>
+                        <button className="px-6 py-2 border rounded-xl text-sm font-semibold bg-black dark:bg-white dark:text-black text-white whitespace-nowrap">Trade Online</button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            {isOTPSent ? (
+                                <div>
+                                    <DialogTitle>Verify Email</DialogTitle>
+                                        <DialogDescription className="mt-2">
+                                           <span>OTP has been sent to something@gmail.com</span>
+                                           <div className="mt-6">
+                                                <InputOTP maxLength={6}>
+                                                    <InputOTPGroup>
+                                                        <InputOTPSlot index={0} />
+                                                        <InputOTPSlot index={1} />
+                                                        <InputOTPSlot index={2} />
+                                                    </InputOTPGroup>
+                                                    <InputOTPSeparator />
+                                                    <InputOTPGroup>
+                                                        <InputOTPSlot index={3} />
+                                                        <InputOTPSlot index={4} />
+                                                        <InputOTPSlot index={5} />
+                                                    </InputOTPGroup>
+                                                </InputOTP> 
+                                           </div>
+                                            <Button className="mt-6 w-full">Verify</Button>
+                                        </DialogDescription>
+                                </div>
+                            ): (
+                                <div>
+                                    <DialogTitle>Enter your email id</DialogTitle>
+                                    <DialogDescription className="mt-2">
+                                        <span>We will send you an OTP</span>
+                                        <Input placeholder="Enter your email" className="outline-none w-full mt-8 bg-gray-100 text-sm px-6 py-3 border-0 rounded-full"/>
+                                        <p className="mt-4 text-xs">By continuing, you accept that you are 18+ years of age & agree to the Terms and Conditions</p>
+                                        <Button onClick={() => setIsOTPSent(true)} className="mt-4 w-full">Get OTP</Button>
+                                    </DialogDescription>
+                                </div>
+                            )}
+                        </DialogHeader>
+                    </DialogContent>
+                </Dialog>
             </div>
         </div>
     </nav>
