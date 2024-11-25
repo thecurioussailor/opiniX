@@ -10,6 +10,7 @@ const Landing = () => {
         <Announcement/>
         <Hero/>
         <Footer/>
+
     </div>
   )
 }

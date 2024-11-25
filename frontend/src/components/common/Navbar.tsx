@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Input } from "../ui/input";
+import icon from "../../images/playboy-icon.svg";
 import {
     Dialog,
     DialogContent,
@@ -20,7 +21,10 @@ const Navbar = () => {
     const [isOTPSent, setIsOTPSent] = useState(false);
   return (
     <nav className="bg-white dark:bg-[rgba(25,28,31,0.75)] bg-opacity-[75%] border-b dark:border-secondary-dark transform backdrop-blur-md text-black dark:text-white z-50 sticky top-[0px] w-full h-[80px] px-6 md:px-10 flex items-center justify-between">
-        <div className="text-xl font-bold ml-2 text-black dark:text-white">OpiniX</div>
+        <div className="text-xl flex items-center ml-2 text-black dark:text-white">
+            <img className="w-8" src={icon} />
+            <p className="pl-2 text-2xl font-bold">OpiniX</p>
+        </div>
         <div>
             <Input placeholder="Search opinions" className="outline-none bg-gray-100 text-sm px-6 py-3 border-0 rounded-full w-[350px]"/>
         </div>
