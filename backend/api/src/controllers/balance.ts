@@ -7,7 +7,7 @@ export const getAllINRBalances = async( req: Request, res: Response) => {
         type: GET_ALL_INR_BALANCES
     })
 
-    res.json(response);
+    res.json(response.payload);
 }
 
 export const getAllStockBalances = async( req: Request, res: Response) => {
@@ -15,7 +15,7 @@ export const getAllStockBalances = async( req: Request, res: Response) => {
         type: GET_ALL_STOCK_BALANCES
     })
 
-    res.json(response);
+    res.json(response.payload);
 }
 
 export const resetAllBalances = async( req: Request, res: Response) => {
@@ -23,7 +23,7 @@ export const resetAllBalances = async( req: Request, res: Response) => {
         type: RESET_ALL_BALANCES
     })
 
-    res.json(response);
+    res.json(response.payload);
 }
 
 export const getINRBalancesByUserId = async( req: Request, res: Response) => {
@@ -36,7 +36,7 @@ export const getINRBalancesByUserId = async( req: Request, res: Response) => {
         }
     })
 
-    res.json(response)
+    res.json(response.payload)
 }
 
 
@@ -51,7 +51,7 @@ export const onRampINRToUserId = async( req: Request, res: Response) => {
         }
     })
 
-    res.json(response);
+    res.json(response.payload);
 }
 
 export const getStockBalanceByUserId = async( req: Request, res: Response) => {
@@ -63,5 +63,5 @@ export const getStockBalanceByUserId = async( req: Request, res: Response) => {
         }
     })
 
-    res.json(response);
+    res.json(response.payload);
 }
