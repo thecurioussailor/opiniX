@@ -4,10 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const otpRoutes_1 = __importDefault(require("./routes/otpRoutes"));
+const routes_1 = __importDefault(require("./routes/routes"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use('/api/v1/otp', otpRoutes_1.default);
-app.listen(3000, () => {
-    console.log("server started on port 3000");
+app.use('/api/v1/', routes_1.default);
+const port = process.env.PORT;
+app.listen(port, () => {
+    console.log("server started on port " + port);
 });

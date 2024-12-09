@@ -18,6 +18,8 @@ const db_1 = __importDefault(require("../db/db"));
 const otpGenerator_1 = require("../utils/otpGenerator");
 const mailSender_1 = require("../utils/mailSender");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const RedisManager_1 = require("../RedisManager");
+const types_1 = require("../types/types");
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
 const requestOTP = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.body;
@@ -37,11 +39,17 @@ const requestOTP = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             }
         });
         if (!user) {
-            yield db_1.default.user.create({
+            const createdUser = yield db_1.default.user.create({
                 data: {
                     email,
                     otpHash,
                     expiry
+                }
+            });
+            const response = yield RedisManager_1.RedisManager.getInstance().sendAndAwait({
+                type: types_1.CREATE_USER,
+                data: {
+                    userId: createdUser.id
                 }
             });
         }

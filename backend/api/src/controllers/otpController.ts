@@ -4,6 +4,8 @@ import prisma from "../db/db"
 import { generateOTP } from "../utils/otpGenerator";
 import { sendEmail } from "../utils/mailSender";
 import jwt from "jsonwebtoken";
+import { RedisManager } from "../RedisManager";
+import { CREATE_USER } from "../types/types";
 
 
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
@@ -29,13 +31,19 @@ export const requestOTP = async (req: Request, res: Response) => {
             }
         })
         if(!user){
-            await prisma.user.create({
+            const createdUser = await prisma.user.create({
                 data: {
                     email,
                     otpHash,
                     expiry
                 }
             });
+            const response = await RedisManager.getInstance().sendAndAwait({
+                type: CREATE_USER,
+                data: {
+                    userId: createdUser.id
+                }
+            })
         }
 
         await prisma.user.update({

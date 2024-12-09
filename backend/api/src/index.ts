@@ -1,11 +1,12 @@
 import express from "express";
-import otpRoutes from "./routes/otpRoutes"
+import routes from "./routes/routes"
 const app = express();
 
 app.use(express.json());
 
-app.use('/api/v1/otp', otpRoutes);
+app.use('/api/v1/', routes);
 
-app.listen(3000, () => {
-    console.log("server started on port 3000");
+const port = process.env.PORT;
+app.listen(port, () => {
+    console.log("server started on port " + port);
 })
